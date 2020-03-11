@@ -2,8 +2,18 @@ https://cs.nyu.edu/~roweis/data/
 it's the mnist_all.mat
 
 %Problem #2
-load mnist_all.mat
+%Program that reads a digit
 
+readnum(1000);%Reads the 100th digit from the test2 matrix for number '2'
+function readnum(n)
+load mnist_all.mat
+    digitImage0 = reshape(test2(n,:),28,28);
+    image(rot90(flipud(digitImage0),-1)),
+    colormap(gray(256));,axis square tight off;
+end
+
+%Program that computes the mean and plots them using a subplot
+load mnist_all.mat
 digit = train0(1,:);
 digitImage = reshape(digit,28,28);
 
