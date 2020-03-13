@@ -1,0 +1,108 @@
+clear ; close all; clc
+
+%%loading data
+fprintf('loading data...\n');
+load('mnist_all.mat');
+
+% Draw 0-9 total 10 numbers
+figure
+for i = 0:9
+    subplot(2,5,i+1)
+    digit = eval(['train' num2str(i) '(1,:)']);
+    digitImage = reshape(digit,28,28);
+    imshow(rot90(flipud(digitImage),-1))
+end
+
+%% Construct training and test samples
+fprintf('\nConstruct training and test samples...\n');
+trainX = []; trainY = [];
+testX = []; testY = [];
+for i = 0:9
+    trainX = [trainX; eval(['double(train' num2str(i) ')'])];
+    trainY = [trainY; (i+1)*ones(size(eval(['double(train' num2str(i) ')']),1),1)];
+    testX = [testX; eval(['double(test' num2str(i) ')'])];
+    testY = [testY; (i+1)*ones(size(eval(['double(test' num2str(i) ')']),1),1)];
+end
+
+%% Set the number of neurons in each layer
+input_layer_size  = size(trainX,2);           %input Number of neurons 
+hidden_layer_size = 100;                      % Number of hidden neurons
+num_labels = length(unique(trainY));          % number of type
+
+% Initialize network weights
+fprintf('\nInitialize network weights ...\n')
+
+initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
+initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
+
+% Weight expansion
+initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
+
+%% Training neural network
+fprintf('\nTraining neural network... \n')
+
+% Set the maximum number of iterations
+options = optimset('MaxIter', 30);
+
+% Regularization coefficient
+lambda = 1;
+
+% Cost function handle
+costFunction = @(p) nnCostFunction(p, ...
+                                   input_layer_size, ...
+                                   hidden_layer_size, ...
+                                   num_labels, trainX, trainY, lambda);
+
+% Iteratively optimize network weights based on cost function
+[nn_params, cost] = fmincg(costFunction, initial_nn_params, options);
+
+% Draw training curve
+figure
+plot(cost,'linewidth',1.5)
+grid on
+xlabel('Training steps')
+ylabel('Cost function value')
+
+% Get iteratively optimized network weights
+Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
+                 hidden_layer_size, (input_layer_size + 1));
+
+Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
+                 num_labels, (hidden_layer_size + 1));
+
+%% Predicting the training set based on the trained neural network
+trainY_out = predict(Theta1, Theta2, trainX);
+
+% Training set accuracy
+accTrain = mean(double(trainY_out == trainY));
+fprintf('\nTraining set accuracy: %f %%\n', accTrain*100);
+
+% Draw recognition map
+figure
+plot(trainY-1,'o','linewidth',1)
+hold on 
+plot(trainY_out-1,'+','linewidth',1)
+grid on
+xlabel('Sample number')
+ylabel('number')
+title(['Training set recognition accuracy is ' num2str(accTrain*100) '%'])
+legend('Sample actual numbers','Sample prediction numbers')
+
+%% Predicting the test set based on the trained neural network
+testY_out = predict(Theta1, Theta2, testX);
+
+% Test set accuracy
+accTest = mean(double(testY_out == testY));
+fprintf('\nTest set accuracy: %f %%\n', accTest*100);
+
+% Draw recognition map
+figure
+plot(testY-1,'o','linewidth',1)
+hold on 
+plot(testY_out-1,'+','linewidth',1)
+grid on
+xlabel('Sample number')
+ylabel('number')
+title(['Training set recognition accuracy is ' num2str(accTest*100) '%'])
+legend('Sample actual numbers','Sample prediction numbers')
+
