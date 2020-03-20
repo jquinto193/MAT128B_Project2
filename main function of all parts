@@ -24,7 +24,7 @@ for i = 0:9
     testX = [testX; eval(['double(test' num2str(i) ')'])];
     testY = [testY; (i+1)*ones(size(eval(['double(test' num2str(i) ')']),1),1)];
 end
-
+%%PROBLEM 4%%%
 %% Set the number of neurons in each layer
 input_layer_size  = size(trainX,2);           %input Number of neurons 
 hidden_layer_size = 100;                      % Number of hidden neurons
