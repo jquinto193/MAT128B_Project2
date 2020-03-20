@@ -30,6 +30,7 @@ input_layer_size  = size(trainX,2);           %input Number of neurons
 hidden_layer_size = 100;                      % Number of hidden neurons
 num_labels = length(unique(trainY));          % number of type
 
+%%%PROBLEM 5%%%
 % Initialize network weights
 fprintf('\nInitialize network weights ...\n')
 
@@ -39,7 +40,7 @@ initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
 % Weight expansion
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 
-%%%PROBLEM 5%%%
+%%%Problem 6%%%
 %% Training neural network
 fprintf('\nTraining neural network... \n')
 
@@ -90,6 +91,7 @@ ylabel('number')
 title(['Training set recognition accuracy is ' num2str(accTrain*100) '%'])
 legend('Sample actual numbers','Sample prediction numbers')
 
+%%%PROBLEM 7%%%
 %% Predicting the test set based on the trained neural network
 testY_out = predict(Theta1, Theta2, testX);
 
