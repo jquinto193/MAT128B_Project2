@@ -1,0 +1,8 @@
+% Draw 0-9 total 10 numbers
+figure
+for i = 0:9
+    subplot(2,5,i+1)
+    digit = eval(['train' num2str(i) '(1,:)']);
+    digitImage = reshape(digit,28,28);
+    imshow(rot90(flipud(digitImage),-1))
+end
