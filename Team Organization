@@ -1,0 +1,18 @@
+Group Members:
+Jiaming Peng
+Ryan Joseph 
+Jose Sanchez
+Jasmine Quinto
+
+The project was distributed as follows:
+For part (i), we all read the pages 179-180 in Greenbaum and Chartier and Jasmine Quinto found the data base (mnist_all.mat). 
+For part (ii), Ryan Joseph and Jiaming Peng both wrote programs in order to read digits from the data base. Jiaming made changes
+to that of Ryan's program by making a loop in order to save space in writing out a subplot for every number. 
+For part (iii), Ryan Joseph and Jasmine both got the same results when they analyzed the activation function/signoidal 
+function in order to verify that the expression was correct.
+He also anazlized what happens to the output of the activation function for small vs large values of NET.
+For part (iv) and (v), since it was very tedious work and it requires many functions, we all had a part in figuring this part out. 
+For part (vi) and (vii), Jose Sanchez was in charge of writing the program for this part. 
+
+In the end, we all made sure that the program ran smoothly and the comments were sufficient.
+We used the github GITHUB = jquinto193/MAT128B_Project2 (link: https://github.com/jquinto193/MAT128B_Project2)
