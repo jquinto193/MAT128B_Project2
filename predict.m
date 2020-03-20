@@ -1,3 +1,16 @@
+function g = sigmoid(z)
+% Sigmod function
+
+g = 1.0 ./ (1.0 + exp(-z));
+end
+
+function g = sigmoidGradient(z)
+%% Calculate the gradient value of the Sigmoid function
+
+g=sigmoid(z).*(1-sigmoid(z));
+
+end
+
 function p = predict(Theta1, Theta2, X)
 %% Neural network for prediction based on given network weights
 % Number of samples
@@ -11,10 +24,3 @@ h2 = sigmoid([ones(m, 1) h1] * Theta2');
 [D , P] = max(h2, [], 2);
 
 end
-
-function g = sigmoid(z)
-% Sigmod function
-
-g = 1.0 ./ (1.0 + exp(-z));
-end
-
