@@ -12,7 +12,7 @@ For part (iii), Ryan Joseph and Jasmine both got the same results when they anal
 function in order to verify that the expression was correct.
 They also anazlized what happens to the output of the activation function for small vs large values of NET.
 For part (iv) and (v), since it was very tedious work and it requires many functions, we all had a part in figuring this part out. 
-For part (vi) and (vii), Jose Sanchez was in charge of writing the program for this part. 
+For part (vi) and (vii), Jiaming Peng and Jose Sanchez were in charge of writing the program for this part. 
 
 In the end, we all made sure that the program ran smoothly and the comments were sufficient.
 We used the github GITHUB = jquinto193/MAT128B_Project2 (link: https://github.com/jquinto193/MAT128B_Project2)
