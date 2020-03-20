@@ -4,6 +4,7 @@ clear ; close all; clc
 fprintf('loading data...\n');
 load('mnist_all.mat');
 
+%%%PROBLEM 2%%%
 % Draw 0-9 total 10 numbers
 figure
 for i = 0:9
@@ -38,6 +39,7 @@ initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
 % Weight expansion
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 
+%%%PROBLEM 5%%%
 %% Training neural network
 fprintf('\nTraining neural network... \n')
 
