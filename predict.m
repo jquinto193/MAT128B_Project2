@@ -11,3 +11,10 @@ h2 = sigmoid([ones(m, 1) h1] * Theta2');
 [D , P] = max(h2, [], 2);
 
 end
+
+function g = sigmoid(z)
+% Sigmod function
+
+g = 1.0 ./ (1.0 + exp(-z));
+end
+
