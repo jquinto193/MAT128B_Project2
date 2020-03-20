@@ -16,7 +16,7 @@ EXT = 3.0;                    % extrapolate maximum 3 times the current bracket
 MAX = 20;                         % max 20 function evaluations per line search
 RATIO = 100;                                      % maximum allowed slope ratio
 
-argstr = ['feval(f, X'];                      % compose string used to call function
+argstr = ['feval(f, X)'];                      % compose string used to call function
 for i = 1:(nargin - 3)
   argstr = [argstr, ',P', int2str(i)];
 end
@@ -29,7 +29,7 @@ i = 0;                                            % zero the run length counter
 ls_failed = 0;                             % no previous line search has failed
 fX = [];
 [f1 df1] = eval(argstr);                      % get function value and gradient
-i = i + (length<0);                                            % count epochs?!
+i = i + (length<0);                                            
 s = -df1;                                        % search direction is steepest
 d1 = -s'*s;                                                 % this is the slope
 z1 = red/(1-d1);                                  % initial step is red/(|s|+1)
@@ -40,7 +40,7 @@ while i < abs(length)                                      % while not finished
   X0 = X; f0 = f1; df0 = df1;                   % make a copy of current values
   X = X + z1*s;                                             % begin line search
   [f2 df2] = eval(argstr);
-  i = i + (length<0);                                          % count epochs?!
+  i = i + (length<0);                                          
   d2 = df2'*s;
   f3 = f1; d3 = d1; z3 = -z1;             % initialize point 3 equal to point 1
   if length>0, M = MAX; else M = min(MAX, -length-i); end
@@ -62,7 +62,7 @@ while i < abs(length)                                      % while not finished
       z1 = z1 + z2;                                           % update the step
       X = X + z2*s;
       [f2 df2] = eval(argstr);
-      M = M - 1; i = i + (length<0);                           % count epochs?!
+      M = M - 1; i = i + (length<0);                           
       d2 = df2'*s;
       z3 = z3-z2;                    % z3 is now relative to the location of z2
     end
@@ -82,7 +82,7 @@ while i < abs(length)                                      % while not finished
       else
         z2 = (limit-z1)/2;                                   % otherwise bisect
       end
-    elseif (limit > -0.5) & (z2+z1 > limit)          % extraplation beyond max?
+    elseif (limit > -0.5) & (z2+z1 > limit)          % extrapolation beyond max?
       z2 = (limit-z1)/2;                                               % bisect
     elseif (limit < -0.5) & (z2+z1 > z1*EXT)       % extrapolation beyond limit
       z2 = z1*(EXT-1.0);                           % set to extrapolation limit
@@ -94,9 +94,9 @@ while i < abs(length)                                      % while not finished
     f3 = f2; d3 = d2; z3 = -z2;                  % set point 3 equal to point 2
     z1 = z1 + z2; X = X + z2*s;                      % update current estimates
     [f2 df2] = eval(argstr);
-    M = M - 1; i = i + (length<0);                             % count epochs?!
+    M = M - 1; i = i + (length<0);                             
     d2 = df2'*s;
-  end                                                      % end of line search
+  end                                                      
 
   if success                                         % if line search succeeded
     f1 = f2; fX = [fX' f1]';
