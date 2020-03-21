@@ -1,0 +1,4 @@
+%% Set the number of neurons in each layer
+input_layer_size  = size(trainX,2);           %input Number of neurons 
+hidden_layer_size = 100;                      % Number of hidden neurons
+num_labels = length(unique(trainY));          % number of type
